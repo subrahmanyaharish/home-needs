@@ -1,0 +1,80 @@
+<div class="container">
+  <div style="margin: 20px;"></div>
+  <!-- style="background-image: url('assets/milk.jpg');" class="milkAndWater" -->
+  <div class="alert alert-warning" role="alert" *ngIf="errorMilk">
+    <p>{{errorMilk}}. Please  <a routerLink="/logIn">re-login</a></p>
+  </div>
+  <mat-card class="milkAndWater" >
+    <h3>Milk Attendance</h3>
+    <div class="alert alert-primary" role="alert" *ngIf="milkresponse">
+      Your data added.
+    </div>
+    <form #milkForm="ngForm" (ngSubmit)="addMilk(milkForm, milkPrice.value)">
+      <mat-form-field class="example-full-width">
+        <mat-label>Liters</mat-label>
+        <input matInput ngModel name="Liters" required>
+      </mat-form-field>
+      <section>
+        <mat-form-field>
+          <mat-label>Price</mat-label>
+          <input matInput type="number" #milkPrice placeholder="Ex. 40" name="MilkPrice"  value='40' required>
+        </mat-form-field>
+      </section>
+      <!-- <section>
+        <mat-checkbox name="MilkInOrOut" [(ngModel)]="MilkInOrOut">
+          Received milk
+      </mat-checkbox>
+      </section> -->
+      <section>
+        <mat-form-field>
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="milk" ngModel name="MilkDate" required>
+          <mat-datepicker-toggle matSuffix [for]="milk"></mat-datepicker-toggle>
+          <mat-datepicker #milk></mat-datepicker>
+        </mat-form-field>
+      </section>
+      <section>
+        <button color="primary" [disabled]="!milkForm.valid" class="btn btn-info" mat-raised-button type="submit">Add Milk</button>
+      </section>
+    </form>
+  </mat-card>
+  <div style="margin: 20px;"></div>
+  <!-- style="background-image: url('assets/20-ltr-water-cans-500x500.png');" class="milkAndWater" -->
+  <mat-card class="milkAndWater">
+    <h3>Water Cans</h3>
+    <div class="alert alert-primary" role="alert" *ngIf="waterResponse">
+      Your data added.
+    </div>
+    <form #waterForm="ngForm" (ngSubmit)="addWater(waterForm, canPrice.value)">
+      <mat-form-field class="example-full-width">
+        <mat-label>No. of Cans</mat-label>
+        <input matInput type="number" name="waterCans" ngModel required>
+      </mat-form-field>
+      <section>
+        <mat-form-field>
+          <mat-label>Price</mat-label>
+          <input matInput type="number" #canPrice placeholder="Ex. 40" name="CanPrice"  value='20' required>
+        </mat-form-field>
+      </section>
+      <!-- <section>
+        <mat-checkbox name="waterInOrOut"
+        matTooltip="Check it if you received a water can"
+        [(ngModel)]="waterInOrOut" >
+          Received cans
+      </mat-checkbox>
+      </section> -->
+      <section>
+        <mat-form-field>
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" ngModel name="WaterDate" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </section>
+      <section>
+        <button color="primary" [disabled]="!waterForm.valid" class="btn btn-info" mat-raised-button type="submit">Add Water cans</button>
+      </section>
+    </form>
+  </mat-card>
+
+</div>
