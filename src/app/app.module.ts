@@ -17,6 +17,7 @@ import { SignInComponent } from './attendance-marker/sign-in/sign-in.component';
 import { LoginComponent } from './attendance-marker/login/login.component';
 import { AuthInterceptorService } from './attendance-marker/auth.intercetor';
 import { AttendanceService } from './attendance-marker/attendance.service';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AttendanceService } from './attendance-marker/attendance.service';
     AttendanceMarkerComponent,
     AttendanceEntriesComponent,
     SignInComponent,
-    LoginComponent  ],
+    LoginComponent,
+    HomeComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

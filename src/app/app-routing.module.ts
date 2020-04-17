@@ -4,9 +4,10 @@ import { AttendanceMarkerComponent } from './attendance-marker/attendance-marker
 import { AttendanceEntriesComponent } from './attendance-marker/attendance-entries/attendance-entries.component';
 import { SignInComponent } from './attendance-marker/sign-in/sign-in.component';
 import { LoginComponent } from './attendance-marker/login/login.component';
+import { HomeComponent } from './home/home.component';
 
 
-const routes: Routes = [{path: '', component: AttendanceMarkerComponent, pathMatch: 'full'},
+const routes: Routes = [{path: '', component: HomeComponent, pathMatch: 'full'},
   {path: 'attendace', component: AttendanceMarkerComponent},
 {path: 'attendace-entries', component: AttendanceEntriesComponent},
 {path: 'signIn', component: SignInComponent},
