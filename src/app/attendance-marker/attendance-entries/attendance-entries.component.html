@@ -77,13 +77,6 @@
             <mat-datepicker-toggle matSuffix [for]="watertoDate"></mat-datepicker-toggle>
             <mat-datepicker #watertoDate></mat-datepicker>
           </mat-form-field>
-          <!-- <section>
-            <select style="max-width: 200px;" class="form-control" #monthSelect (change)="monthChange(monthSelect.value)">
-              <option *ngFor="let month of months" [value]="month">
-                {{month}}
-              </option>
-            </select>
-          </section style="margin-top: 20px;"> -->
           <section >
             <button color="primary" [disabled] = "!WaterdateForm.valid" matTooltip="Filter data based on Dates" mat-raised-button type="submit">Go</button> |
             <button class="btn btn-secondary"  (click)="resetWater()"  mat-raised-button type="button">Reset</button>
@@ -99,7 +92,6 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Cans</th>
-              <!-- <th scope="col">Received</th> -->
               <th scope="col">Price</th>
               <th scope="col">Date</th>
             </tr>
@@ -110,9 +102,8 @@
             data-target="#staticBackdrop" (click)="editWater(prod)">
               <th scope="row">{{i+1}}</th>
               <td>{{prod.cans}}</td>
-              <!-- <td>{{prod.inOrOut}}</td> -->
               <td>{{prod.price}}</td>
-              <td>{{prod.waterIn | date: 'fullDate'}}</td>
+              <td>{{prod.waterIn | date: 'longDate'}}</td>
             </tr>
           </tbody>
         </table>
@@ -126,8 +117,6 @@
     </div>
   </div>
   <div style="margin: 10px;"></div>
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -147,14 +136,12 @@
             <tr *ngIf="editWaterProd">
               <th scope="col">#</th>
               <th scope="col">Cans</th>
-              <!-- <th scope="col">Received</th> -->
               <th scope="col">Price</th>
               <th scope="col">Date</th>
             </tr>
             <tr *ngIf="editMilkProd">
               <th scope="col">#</th>
               <th scope="col">Liters</th>
-              <!-- <th scope="col">Received</th> -->
               <th scope="col">Price</th>
               <th scope="col">Date</th>
             </tr>
@@ -163,7 +150,6 @@
             <tr>
               <th scope="row">1</th>
               <td><input class="form-control"  style="width: 55px;" value="{{editWaterProd.cans}}" [(ngModel)]="editWaterProduct.cans" ></td>
-              <!-- <td><input  type="checkbox"  value="{{editWaterProd.inOrOut}}" [(ngModel)]="editWaterProduct.inOrOut"></td> -->
               <td><input class="form-control" style="width: 60px;" value="{{editWaterProd.price}}" [(ngModel)]="editWaterProduct.price"></td>
               <td><input class="form-control" style="width: 160px;" type="date" value="{{editWaterProd.waterIn}}" [(ngModel)]="editWaterProduct.waterIn"></td>
             </tr>
@@ -172,18 +158,12 @@
             <tr>
                 <th scope="row">{{1}}</th>
                 <td><input class="form-control" style="width: 55px;" value="{{editMilkProd.litres}}" [(ngModel)]="editMilkProduct.litres"></td>
-                <!-- <td><input   type="checkbox" value="{{editMilkProd.inOrOut}}" [(ngModel)]="editMilkProduct.inOrOut"></td> -->
                 <td><input  class="form-control" style="width: 60px;" type="number" value="{{editMilkProd.price}}" [(ngModel)]="editMilkProduct.price"></td>
                 <td><input  class="form-control" style="width: 160px;" type="date" value="{{editMilkProd.milkIn}}" [(ngModel)]="editMilkProduct.milkIn"></td>
             </tr>
           </tbody>
-
-
-
         </table>
       </div>
-
-
       <div class="modal-footer">
         <button type="button" mat-raised-button class="btn btn-secondary" (click)="editMilkProd=null;editWaterProd=null" data-dismiss="modal">Close</button> |
         <button type="button" mat-raised-button class="btn btn-primary" (click)="save()" data-dismiss="modal">Save</button>|

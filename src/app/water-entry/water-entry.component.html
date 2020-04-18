@@ -1,0 +1,107 @@
+<div class="container">
+  <div style="margin: 20px;"></div>
+  <div>
+    <div class="alert alert-info" role="alert" *ngIf="errorWater">
+      <p>{{errorWater}}. Please  <a routerLink="/logIn">re-login</a></p>
+    </div>
+    <mat-card>
+      <h4>Water Cans:</h4>
+      <form #WaterdateForm="ngForm" (ngSubmit)="WaterfromToDate(WaterdateForm)">
+        <mat-form-field style="margin-right: 10px;">
+          <mat-label>From date</mat-label>
+          <input matInput [matDatepicker]="waterfromDate" ngModel name="WaterfromDate" required>
+          <mat-datepicker-toggle matSuffix [for]="waterfromDate"></mat-datepicker-toggle>
+          <mat-datepicker #waterfromDate></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>To date</mat-label>
+          <input matInput [matDatepicker]="watertoDate" ngModel name="WatertoDate" required>
+          <mat-datepicker-toggle matSuffix [for]="watertoDate"></mat-datepicker-toggle>
+          <mat-datepicker #watertoDate></mat-datepicker>
+        </mat-form-field>
+        <section >
+          <button color="primary" [disabled] = "!WaterdateForm.valid" matTooltip="Filter data based on Dates" mat-raised-button type="submit">Go</button> |
+          <button class="btn btn-secondary"  (click)="resetWater()"  mat-raised-button type="button">Reset</button>
+        </section>
+      </form>
+    </mat-card>
+    <div style="margin: 20px;"></div>
+    <mat-card>
+      <h4>Entries:</h4>
+      <div *ngIf="waterSpin" style="text-align: center; margin-top: 20px;">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+      <div style="margin: 20px;"></div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Cans</th>
+            <th scope="col">Price</th>
+            <th scope="col">Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let prod of waterAttendanceSer; let i = index"
+          style="cursor: pointer;" data-toggle="modal"
+          data-target="#staticBackdrop" (click)="editWater(prod)">
+            <th scope="row">{{i+1}}</th>
+            <td>{{prod.cans}}</td>
+            <td>{{prod.price}}</td>
+            <td>{{prod.waterIn | date: 'longDate'}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <mat-card-actions>
+        <h6 style="margin: 10px;">Amount: {{totalWaterBill}}</h6>
+      </mat-card-actions>
+      <mat-card-footer>
+        <button color="primary" style="margin: 10px;" mat-raised-button (click)="calculateTotalWaterPrice()">Total</button>
+      </mat-card-footer>
+    </mat-card>
+    <div style="margin: 20px;"></div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div style="margin: 20px;"></div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Cans</th>
+              <th scope="col">Price</th>
+              <th scope="col">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td><input class="form-control"  style="width: 55px;" value="{{editWaterProduct.cans}}" [(ngModel)]="editWaterProduct.cans" ></td>
+              <td><input class="form-control" style="width: 60px;" value="{{editWaterProduct.price}}" [(ngModel)]="editWaterProduct.price"></td>
+              <td><input class="form-control" style="width: 160px;" type="date" value="{{editWaterProduct.waterIn}}" [(ngModel)]="editWaterProduct.waterIn"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" mat-raised-button class="btn btn-primary" (click)="save()" data-dismiss="modal">Save</button>|
+        <button type="button" mat-raised-button class="btn btn-secondary" data-dismiss="modal">Close</button> |
+        <button type="button" mat-raised-button class="btn btn-danger" (click)="delete()" data-dismiss="modal">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

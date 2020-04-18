@@ -19,6 +19,8 @@ import { LoginComponent } from './attendance-marker/login/login.component';
 import { AuthInterceptorService } from './attendance-marker/auth.intercetor';
 import { AttendanceService } from './attendance-marker/attendance.service';
 import { HomeComponent } from './home/home.component';
+import { WaterEntryComponent } from './water-entry/water-entry.component';
+import { MilkEntryComponent } from './milk-entry/milk-entry.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { HomeComponent } from './home/home.component';
     AttendanceEntriesComponent,
     SignInComponent,
     LoginComponent,
-    HomeComponent  ],
+    HomeComponent,
+    WaterEntryComponent,
+    MilkEntryComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

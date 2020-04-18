@@ -188,7 +188,6 @@ export class AttendanceEntriesComponent implements OnInit {
   }
 
   resetWater() {
-    debugger;
     this.waterAttendanceSer = [...this.resetWaterSer];
   }
 
