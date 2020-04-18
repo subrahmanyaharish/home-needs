@@ -20,7 +20,9 @@
           <mat-datepicker #toDate></mat-datepicker>
         </mat-form-field>
         <section>
-          <button [disabled] = "!dateForm.valid" matTooltip="Filter data based on Dates" mat-raised-button type="submit">Go</button>
+          <button color="primary" [disabled] = "!dateForm.valid" matTooltip="Filter data based on Dates" mat-raised-button type="submit">Go</button> |
+          <button class="btn btn-secondary"  (click)="resetMilk()"  mat-raised-button type="button">Reset</button>
+
         </section>
       </form>
 
@@ -47,7 +49,7 @@
             <td>{{prod.litres}}</td>
             <!-- <td>{{prod.inOrOut}}</td> -->
             <td>{{prod.price}}</td>
-            <td>{{prod.milkIn | date: 'shortDate'}}</td>
+            <td>{{prod.milkIn | date: 'fullDate'}}</td>
           </tr>
         </tbody>
       </table>
@@ -75,9 +77,18 @@
             <mat-datepicker-toggle matSuffix [for]="watertoDate"></mat-datepicker-toggle>
             <mat-datepicker #watertoDate></mat-datepicker>
           </mat-form-field>
-          <section>
-            <button [disabled] = "!WaterdateForm.valid" matTooltip="Filter data based on Dates" mat-raised-button type="submit">Go</button>
+          <!-- <section>
+            <select style="max-width: 200px;" class="form-control" #monthSelect (change)="monthChange(monthSelect.value)">
+              <option *ngFor="let month of months" [value]="month">
+                {{month}}
+              </option>
+            </select>
+          </section style="margin-top: 20px;"> -->
+          <section >
+            <button color="primary" [disabled] = "!WaterdateForm.valid" matTooltip="Filter data based on Dates" mat-raised-button type="submit">Go</button> |
+            <button class="btn btn-secondary"  (click)="resetWater()"  mat-raised-button type="button">Reset</button>
           </section>
+
         </form>
         <div *ngIf="waterSpin" style="text-align: center; margin-top: 20px;">
           <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -101,7 +112,7 @@
               <td>{{prod.cans}}</td>
               <!-- <td>{{prod.inOrOut}}</td> -->
               <td>{{prod.price}}</td>
-              <td>{{prod.waterIn | date: 'shortDate'}}</td>
+              <td>{{prod.waterIn | date: 'fullDate'}}</td>
             </tr>
           </tbody>
         </table>

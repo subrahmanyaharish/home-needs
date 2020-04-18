@@ -3,7 +3,7 @@
     <div *ngIf="isLoading" style="left: 40%; position: absolute;">
       <mat-spinner></mat-spinner>
     </div>
-    <mat-card>
+    <mat-card *ngIf="!isLoading">
       <div *ngIf="!isLoading" class="col-xs-12 col-md-6" style="text-align: center; margin: auto;">
         <div class="alert alert-danger" role="alert" *ngIf="error">
           {{error}}

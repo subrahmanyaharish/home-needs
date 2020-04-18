@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatProgressBarModule, MatInputModule, MatTooltipModule, MatTabsModule, MatCheckboxModule } from '@angular/material';
-import { MatCardModule, MatDividerModule, MatButtonModule, MatExpansionModule, MatNativeDateModule } from '@angular/material';
+import { MatCardModule, MatSelectModule, MatDividerModule,
+   MatButtonModule, MatExpansionModule, MatNativeDateModule } from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
@@ -43,7 +44,8 @@ import { HomeComponent } from './home/home.component';
     MatDividerModule,
     MatCheckboxModule,
     MatTabsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSelectModule
   ],
   providers: [AttendanceService,
               {

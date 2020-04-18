@@ -16,10 +16,13 @@ export class AttendanceEntriesComponent implements OnInit {
   milkAttendanceSer: MilkAttendace[] = [];
   tempMilkAttendanceSer: MilkAttendace[] = [];
   milkFromToDate: MilkAttendace[] = [];
+  resetMilkSer: MilkAttendace[] = [];
   totalMilkBill: number;
   waterAttendanceSer: WaterCans[] = [];
   tempWaterAttendanceSer: WaterCans[] = [];
   waterFromToDate: WaterCans[] = [];
+  resetWaterSer: WaterCans[] = [];
+
   totalWaterBill: number;
   milkSpin = false;
   waterSpin = false;
@@ -29,6 +32,8 @@ export class AttendanceEntriesComponent implements OnInit {
   editWaterProduct: WaterCans = null;
   errorMilk: string = null;
   errorWater: string = null;
+  months = [ 'Choose Month', 'January', 'February', 'March', 'April', 'May', 'June', 'July',
+   'August', 'September', 'October', 'November', 'December'];
 
 
   constructor(private attSer: AttendanceService, private authSer: AuthService) { }
@@ -52,6 +57,7 @@ export class AttendanceEntriesComponent implements OnInit {
                 });
                 //
                 this.tempMilkAttendanceSer = this.milkAttendanceSer;
+                this.resetMilkSer = [...this.milkAttendanceSer];
                 this.milkSpin = false;
               },
       error => { this.errorMilk = error.statusText ; this.milkSpin = false; }
@@ -72,6 +78,7 @@ export class AttendanceEntriesComponent implements OnInit {
                 });
                 //
                 this.tempWaterAttendanceSer = this.waterAttendanceSer;
+                this.resetWaterSer = [...this.waterAttendanceSer];
                 this.waterSpin = false;
               },
       error => {this.errorWater = error.statusText; this.waterSpin = false; }
@@ -81,28 +88,20 @@ export class AttendanceEntriesComponent implements OnInit {
   calculateTotalMilkPrice() {
     this.totalMilkBill = 0;
     this.milkAttendanceSer.forEach((value) => {
-      // if (value.inOrOut === 'Yes') {
-        this.totalMilkBill = (+value.price * +value.litres) + this.totalMilkBill;
-      // }
+    this.totalMilkBill = (+value.price * +value.litres) + this.totalMilkBill;
     } );
   }
 
   calculateTotalWaterPrice() {
     this.totalWaterBill = 0;
     this.waterAttendanceSer.forEach((value) => {
-      // if (value.inOrOut === 'Yes') {
-        this.totalWaterBill = (+value.price * +value.cans) + this.totalWaterBill;
-      // }
+    this.totalWaterBill = (+value.price * +value.cans) + this.totalWaterBill;
     } );
   }
 
   editMilk(prod: MilkAttendace) {
     this.editMilkProd = JSON.parse(JSON.stringify(prod));
     this.editMilkProduct = JSON.parse(JSON.stringify(prod));
-    // const checked = false;
-    // if (prod.inOrOut === 'Yes') {
-    //   this.editMilkProduct.inOrOut = true;
-    // }
   }
 
   editWater(prod: WaterCans) {
@@ -170,6 +169,7 @@ export class AttendanceEntriesComponent implements OnInit {
       return (milkFromDate >=  dateForm.value.fromDate && milkToDate  <= dateForm.value.toDate);
     });
     this.milkAttendanceSer = this.milkFromToDate;
+    dateForm.resetForm();
   }
 
   WaterfromToDate(WaterdateForm: NgForm) {
@@ -180,6 +180,20 @@ export class AttendanceEntriesComponent implements OnInit {
       return (milkFromDate >=  WaterdateForm.value.WaterfromDate && milkToDate  <= WaterdateForm.value.WatertoDate);
     });
     this.waterAttendanceSer = this.waterFromToDate;
+    WaterdateForm.resetForm();
+  }
+
+  monthChange(month) {
+    console.log(month);
+  }
+
+  resetWater() {
+    debugger;
+    this.waterAttendanceSer = [...this.resetWaterSer];
+  }
+
+  resetMilk() {
+    this.milkAttendanceSer = [...this.resetMilkSer];
   }
 
 }
