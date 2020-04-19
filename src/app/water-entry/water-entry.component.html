@@ -75,15 +75,15 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Edit Here</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
       <div class="modal-body">
-        <div style="margin: 20px;"></div>
-        <table class="table table-striped">
+        <!-- <div style="margin: 20px;"></div> -->
+        <!-- <table class="table table-striped">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -100,7 +100,25 @@
               <td><input class="form-control" style="width: 160px;" type="date" value="{{editWaterProduct.waterIn}}" [(ngModel)]="editWaterProduct.waterIn"></td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
+        <div class="form-group row">
+          <label for="Cans" class="col-sm-2 col-form-label"><strong>Cans</strong></label>
+          <div class="col-sm-10">
+            <input class="form-control" id="Cans" value="{{editWaterProduct.cans}}" [(ngModel)]="editWaterProduct.cans">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="Price" class="col-sm-2 col-form-label"><strong>Price</strong></label>
+          <div class="col-sm-10">
+            <input class="form-control" id="Price" value="{{editWaterProduct.price}}" [(ngModel)]="editWaterProduct.price">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="date1" class="col-sm-2 col-form-label"><strong>Date</strong></label>
+          <div class="col-sm-10">
+            <input type="date" class="form-control" id="date1" value="{{editWaterProduct.waterIn}}" [(ngModel)]="editWaterProduct.waterIn">
+          </div>
+        </div>
       </div>
 
       <div class="modal-footer">

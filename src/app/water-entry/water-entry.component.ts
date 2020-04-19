@@ -107,8 +107,8 @@ export class WaterEntryComponent implements OnInit {
     this.waterAttendanceSer = this.tempWaterAttendanceSer;
     this.waterFromToDate = this.waterAttendanceSer.filter(value => {
       const milkFromDate = new Date(value.waterIn);
-      const milkToDate = new Date(value.waterIn);
-      return (milkFromDate >=  WaterdateForm.value.WaterfromDate && milkToDate  <= WaterdateForm.value.WatertoDate);
+      milkFromDate.setHours(0, 0, 0);
+      return (milkFromDate >=  WaterdateForm.value.WaterfromDate && milkFromDate  <= WaterdateForm.value.WatertoDate);
     });
     this.waterAttendanceSer = this.waterFromToDate;
     WaterdateForm.resetForm();

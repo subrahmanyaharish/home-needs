@@ -29,8 +29,6 @@ export class AttendanceEntriesComponent implements OnInit {
   totalWaterBill: number;
   milkSpin = false;
   waterSpin = false;
-  editMilkProd: MilkAttendace = null;
-  editWaterProd: WaterCans = null;
   editMilkProduct: MilkAttendace = null;
   editWaterProduct: WaterCans = null;
   errorMilk: string = null;
@@ -103,17 +101,15 @@ export class AttendanceEntriesComponent implements OnInit {
   }
 
   editMilk(prod: MilkAttendace) {
-    this.editMilkProd = JSON.parse(JSON.stringify(prod));
     this.editMilkProduct = JSON.parse(JSON.stringify(prod));
   }
 
   editWater(prod: WaterCans) {
-    this.editWaterProd = JSON.parse(JSON.stringify(prod));
     this.editWaterProduct = JSON.parse(JSON.stringify(prod));
   }
 
   save() {
-    if (this.editMilkProd) {
+    if (this.editMilkProduct) {
        const index = this.milkAttendanceSer.findIndex(
          element => {
            return element.id === this.editMilkProduct.id; });
@@ -132,17 +128,17 @@ export class AttendanceEntriesComponent implements OnInit {
        this.allMilkData[allIndex] = this.milkAttendanceSer[index];
        this.attSer.updateMilk(this.allMilkData);
 
-       this.editMilkProd = null;
+       this.editMilkProduct = null;
        }
-    if (this.editWaterProd) {
+    if (this.editWaterProduct) {
       const index = this.waterAttendanceSer.findIndex(
         element => {
-          return element.id === this.editWaterProd.id; });
+          return element.id === this.editWaterProduct.id; });
 
-      this.waterAttendanceSer[index].id = this.editWaterProd.id;
-      this.waterAttendanceSer[index].cans = this.editWaterProd.cans;
-      this.waterAttendanceSer[index].waterIn = this.editWaterProd.waterIn;
-      this.waterAttendanceSer[index].price = this.editWaterProd.price;
+      this.waterAttendanceSer[index].id = this.editWaterProduct.id;
+      this.waterAttendanceSer[index].cans = this.editWaterProduct.cans;
+      this.waterAttendanceSer[index].waterIn = this.editWaterProduct.waterIn;
+      this.waterAttendanceSer[index].price = this.editWaterProduct.price;
 
       const allIndex = this.allCansData.findIndex(
         element => {
@@ -151,12 +147,12 @@ export class AttendanceEntriesComponent implements OnInit {
       );
       this.allCansData[allIndex] = this.waterAttendanceSer[index];
       this.attSer.updateWater(this.allCansData);
-      this.editWaterProd = null;
+      this.editWaterProduct = null;
     }
   }
 
   delete() {
-    if (this.editMilkProd) {
+    if (this.editMilkProduct) {
       const index = this.milkAttendanceSer.findIndex(
         element => {
           return element.id === this.editMilkProduct.id; });
@@ -168,12 +164,12 @@ export class AttendanceEntriesComponent implements OnInit {
       this.milkAttendanceSer.splice(index, 1);
       this.allMilkData.splice(allIndex, 1);
       this.attSer.updateMilk(this.allMilkData);
-      this.editMilkProd = null;
+      this.editMilkProduct = null;
     }
-    if (this.editWaterProd) {
+    if (this.editWaterProduct) {
       const index = this.waterAttendanceSer.findIndex(
         element => {
-          return element.id === this.editWaterProd.id; });
+          return element.id === this.editWaterProduct.id; });
       const allIndex = this.allCansData.findIndex(
             element => {
               return element.id ===  this.editWaterProduct.id;
@@ -182,7 +178,7 @@ export class AttendanceEntriesComponent implements OnInit {
       this.waterAttendanceSer.splice(index, 1);
       this.allCansData.splice(allIndex, 1);
       this.attSer.updateWater(this.allCansData);
-      this.editWaterProd = null;
+      this.editWaterProduct = null;
     }
   }
 
@@ -191,8 +187,8 @@ export class AttendanceEntriesComponent implements OnInit {
     this.milkAttendanceSer = this.tempMilkAttendanceSer;
     this.milkFromToDate = this.milkAttendanceSer.filter(value => {
       const milkFromDate = new Date(value.milkIn);
-      const milkToDate = new Date(value.milkIn);
-      return (milkFromDate >=  dateForm.value.fromDate && milkToDate  <= dateForm.value.toDate);
+      milkFromDate.setHours(0, 0, 0);
+      return (milkFromDate >=  dateForm.value.fromDate && milkFromDate  <= dateForm.value.toDate);
     });
     this.milkAttendanceSer = this.milkFromToDate;
     dateForm.resetForm();
@@ -202,8 +198,8 @@ export class AttendanceEntriesComponent implements OnInit {
     this.waterAttendanceSer = this.tempWaterAttendanceSer;
     this.waterFromToDate = this.waterAttendanceSer.filter(value => {
       const milkFromDate = new Date(value.waterIn);
-      const milkToDate = new Date(value.waterIn);
-      return (milkFromDate >=  WaterdateForm.value.WaterfromDate && milkToDate  <= WaterdateForm.value.WatertoDate);
+      milkFromDate.setHours(0, 0, 0);
+      return (milkFromDate >=  WaterdateForm.value.WaterfromDate && milkFromDate  <= WaterdateForm.value.WatertoDate);
     });
     this.waterAttendanceSer = this.waterFromToDate;
     WaterdateForm.resetForm();

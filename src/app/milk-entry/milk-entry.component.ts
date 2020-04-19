@@ -104,8 +104,8 @@ export class MilkEntryComponent implements OnInit {
     this.milkAttendanceSer = this.tempMilkAttendanceSer;
     this.milkFromToDate = this.milkAttendanceSer.filter(value => {
       const milkFromDate = new Date(value.milkIn);
-      const milkToDate = new Date(value.milkIn);
-      return (milkFromDate >=  dateForm.value.fromDate && milkToDate  <= dateForm.value.toDate);
+      milkFromDate.setHours(0, 0, 0);
+      return (milkFromDate >=  dateForm.value.fromDate && milkFromDate  <= dateForm.value.toDate);
     });
     this.milkAttendanceSer = this.milkFromToDate;
     dateForm.resetForm();

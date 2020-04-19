@@ -123,15 +123,15 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-        <button type="button" (click)="editMilkProd=null;editWaterProd=null" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="staticBackdropLabel">Edit here</h5>
+        <button type="button" (click)="editMilkProduct=null;editWaterProduct=null" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
       <div class="modal-body">
         <div style="margin: 20px;"></div>
-        <table class="table table-striped">
+        <!-- <table class="table table-striped">
           <thead>
             <tr *ngIf="editWaterProd">
               <th scope="col">#</th>
@@ -162,10 +162,53 @@
                 <td><input  class="form-control" style="width: 160px;" type="date" value="{{editMilkProd.milkIn}}" [(ngModel)]="editMilkProduct.milkIn"></td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
+        <div *ngIf="editMilkProduct">
+          <div class="form-group row">
+            <label for="Liters" class="col-sm-2 col-form-label"><strong>Liters</strong></label>
+            <div class="col-sm-10">
+              <input class="form-control" id="Liters" value="{{editMilkProduct.litres}}"
+              [(ngModel)]="editMilkProduct.litres">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="Price" class="col-sm-2 col-form-label"><strong>Price</strong></label>
+            <div class="col-sm-10">
+              <input class="form-control" id="Price" value="{{editMilkProduct.price}}"
+              [(ngModel)]="editMilkProduct.price">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="date1" class="col-sm-2 col-form-label"><strong>Date</strong></label>
+            <div class="col-sm-10">
+              <input type="date" class="form-control" id="date1" value="{{editMilkProduct.milkIn}}"
+              [(ngModel)]="editMilkProduct.milkIn">
+            </div>
+          </div>
+        </div>
+        <div *ngIf="editWaterProduct">
+          <div class="form-group row">
+            <label for="Cans" class="col-sm-2 col-form-label"><strong>Cans</strong></label>
+            <div class="col-sm-10">
+              <input class="form-control" id="Cans" value="{{editWaterProduct.cans}}" [(ngModel)]="editWaterProduct.cans">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="Price" class="col-sm-2 col-form-label"><strong>Price</strong></label>
+            <div class="col-sm-10">
+              <input class="form-control" id="Price" value="{{editWaterProduct.price}}" [(ngModel)]="editWaterProduct.price">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="date1" class="col-sm-2 col-form-label"><strong>Date</strong></label>
+            <div class="col-sm-10">
+              <input type="date" class="form-control" id="date1" value="{{editWaterProduct.waterIn}}" [(ngModel)]="editWaterProduct.waterIn">
+            </div>
+          </div>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" mat-raised-button class="btn btn-secondary" (click)="editMilkProd=null;editWaterProd=null" data-dismiss="modal">Close</button> |
+        <button type="button" mat-raised-button class="btn btn-secondary" (click)="editMilkProduct=null;editWaterProduct=null" data-dismiss="modal">Close</button> |
         <button type="button" mat-raised-button class="btn btn-primary" (click)="save()" data-dismiss="modal">Save</button>|
         <button type="button" mat-raised-button class="btn btn-danger" (click)="delete()" data-dismiss="modal">Delete</button>
       </div>
