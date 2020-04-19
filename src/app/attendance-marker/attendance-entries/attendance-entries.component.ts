@@ -17,7 +17,10 @@ export class AttendanceEntriesComponent implements OnInit {
   tempMilkAttendanceSer: MilkAttendace[] = [];
   milkFromToDate: MilkAttendace[] = [];
   resetMilkSer: MilkAttendace[] = [];
+  allMilkData: MilkAttendace[] = [];
   totalMilkBill: number;
+
+  allCansData: WaterCans[] = [];
   waterAttendanceSer: WaterCans[] = [];
   tempWaterAttendanceSer: WaterCans[] = [];
   waterFromToDate: WaterCans[] = [];
@@ -32,8 +35,6 @@ export class AttendanceEntriesComponent implements OnInit {
   editWaterProduct: WaterCans = null;
   errorMilk: string = null;
   errorWater: string = null;
-  months = [ 'Choose Month', 'January', 'February', 'March', 'April', 'May', 'June', 'July',
-   'August', 'September', 'October', 'November', 'December'];
 
 
   constructor(private attSer: AttendanceService, private authSer: AuthService) { }
@@ -50,13 +51,14 @@ export class AttendanceEntriesComponent implements OnInit {
       return milkArray;
     })).subscribe(
       data => {
-                this.milkAttendanceSer = data;
+                this.allMilkData = data;
+                // this.milkAttendanceSer = data;
                 // to filter data based on user
-                this.milkAttendanceSer = this.milkAttendanceSer.filter(val => {
+                this.milkAttendanceSer = this.allMilkData.filter(val => {
                   return val.user === this.authSer.userEmail;
                 });
                 //
-                this.tempMilkAttendanceSer = this.milkAttendanceSer;
+                this.tempMilkAttendanceSer = [...this.milkAttendanceSer];
                 this.resetMilkSer = [...this.milkAttendanceSer];
                 this.milkSpin = false;
               },
@@ -71,9 +73,10 @@ export class AttendanceEntriesComponent implements OnInit {
       return waterArray;
     })).subscribe(
       data => {
-                this.waterAttendanceSer = data;
+                this.allCansData = data;
+                // this.waterAttendanceSer = data;
                 // to filter data based on user
-                this.waterAttendanceSer = this.waterAttendanceSer.filter(val => {
+                this.waterAttendanceSer = this.allCansData.filter(val => {
                   return val.user === this.authSer.userEmail;
                 });
                 //
@@ -111,51 +114,74 @@ export class AttendanceEntriesComponent implements OnInit {
 
   save() {
     if (this.editMilkProd) {
-       const index = this.milkAttendanceSer.findIndex(element => {return element.id === this.editMilkProduct.id; });
+       const index = this.milkAttendanceSer.findIndex(
+         element => {
+           return element.id === this.editMilkProduct.id; });
 
-      //  let inorout = 'No';
-      //  if (this.editMilkProduct.inOrOut == 'true' || this.editMilkProduct.inOrOut == 'Yes') {
-      //    inorout = 'Yes';
-      //    }
        this.milkAttendanceSer[index].id = this.editMilkProduct.id;
-      //  this.milkAttendanceSer[index].inOrOut = inorout;
        this.milkAttendanceSer[index].litres = this.editMilkProduct.litres;
        this.milkAttendanceSer[index].milkIn = this.editMilkProduct.milkIn;
        this.milkAttendanceSer[index].price = this.editMilkProduct.price;
 
-       console.log(this.editMilkProduct)
-       this.attSer.updateMilk(this.milkAttendanceSer);
+       const allIndex = this.allMilkData.findIndex(
+        element => {
+          return element.id ===  this.milkAttendanceSer[index].id;
+        }
+      );
+
+       this.allMilkData[allIndex] = this.milkAttendanceSer[index];
+       this.attSer.updateMilk(this.allMilkData);
 
        this.editMilkProd = null;
        }
     if (this.editWaterProd) {
-      const index = this.waterAttendanceSer.findIndex(element => {return element.id === this.editWaterProd.id; });
+      const index = this.waterAttendanceSer.findIndex(
+        element => {
+          return element.id === this.editWaterProd.id; });
 
-      // let inorout = 'No';
-      // if (this.editWaterProduct.inOrOut === 'true' || this.editWaterProduct.inOrOut === 'Yes') { inorout = 'Yes'; }
       this.waterAttendanceSer[index].id = this.editWaterProd.id;
-      // this.waterAttendanceSer[index].inOrOut = inorout;
       this.waterAttendanceSer[index].cans = this.editWaterProd.cans;
       this.waterAttendanceSer[index].waterIn = this.editWaterProd.waterIn;
       this.waterAttendanceSer[index].price = this.editWaterProd.price;
-      this.waterAttendanceSer[this.editWaterProduct.id] = this.editWaterProduct;
 
-      this.attSer.updateWater(this.waterAttendanceSer);
+      const allIndex = this.allCansData.findIndex(
+        element => {
+          return element.id ===  this.waterAttendanceSer[index].id;
+        }
+      );
+      this.allCansData[allIndex] = this.waterAttendanceSer[index];
+      this.attSer.updateWater(this.allCansData);
       this.editWaterProd = null;
     }
   }
 
   delete() {
     if (this.editMilkProd) {
-      const index = this.milkAttendanceSer.findIndex(element => {return element.id === this.editMilkProduct.id; });
+      const index = this.milkAttendanceSer.findIndex(
+        element => {
+          return element.id === this.editMilkProduct.id; });
+      const allIndex = this.allMilkData.findIndex(
+            element => {
+              return element.id ===  this.editMilkProduct.id;
+            }
+          );
       this.milkAttendanceSer.splice(index, 1);
-      this.attSer.updateMilk(this.milkAttendanceSer);
+      this.allMilkData.splice(allIndex, 1);
+      this.attSer.updateMilk(this.allMilkData);
       this.editMilkProd = null;
     }
     if (this.editWaterProd) {
-      const index = this.waterAttendanceSer.findIndex(element => {return element.id === this.editWaterProd.id; });
+      const index = this.waterAttendanceSer.findIndex(
+        element => {
+          return element.id === this.editWaterProd.id; });
+      const allIndex = this.allCansData.findIndex(
+            element => {
+              return element.id ===  this.editWaterProduct.id;
+            }
+          );
       this.waterAttendanceSer.splice(index, 1);
-      this.attSer.updateWater(this.waterAttendanceSer);
+      this.allCansData.splice(allIndex, 1);
+      this.attSer.updateWater(this.allCansData);
       this.editWaterProd = null;
     }
   }
@@ -181,10 +207,6 @@ export class AttendanceEntriesComponent implements OnInit {
     });
     this.waterAttendanceSer = this.waterFromToDate;
     WaterdateForm.resetForm();
-  }
-
-  monthChange(month) {
-    console.log(month);
   }
 
   resetWater() {

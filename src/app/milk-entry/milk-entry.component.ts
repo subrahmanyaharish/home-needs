@@ -12,6 +12,7 @@ import { NgForm } from '@angular/forms';
 })
 export class MilkEntryComponent implements OnInit {
 
+  allMilkData: MilkAttendace[] = [];
   milkAttendanceSer: MilkAttendace[] = [];
   tempMilkAttendanceSer: MilkAttendace[] = [];
   milkFromToDate: MilkAttendace[] = [];
@@ -36,13 +37,14 @@ export class MilkEntryComponent implements OnInit {
       return milkArray;
     })).subscribe(
       data => {
-                this.milkAttendanceSer = data;
+                this.allMilkData = data;
+                // this.milkAttendanceSer = data;
                 // to filter data based on user
-                this.milkAttendanceSer = this.milkAttendanceSer.filter(val => {
+                this.milkAttendanceSer = this.allMilkData.filter(val => {
                   return val.user === this.authSer.userEmail;
                 });
                 //
-                this.tempMilkAttendanceSer = this.milkAttendanceSer;
+                this.tempMilkAttendanceSer = [...this.milkAttendanceSer];
                 this.resetMilkSer = [...this.milkAttendanceSer];
                 this.milkSpin = false;
               },
@@ -64,18 +66,37 @@ export class MilkEntryComponent implements OnInit {
 
 
   save() {
-      const index = this.milkAttendanceSer.findIndex(element => {return element.id === this.editMilkProduct.id; });
+      const index = this.milkAttendanceSer.findIndex(
+        element => {
+          return element.id === this.editMilkProduct.id; });
       this.milkAttendanceSer[index].id = this.editMilkProduct.id;
       this.milkAttendanceSer[index].litres = this.editMilkProduct.litres;
       this.milkAttendanceSer[index].milkIn = this.editMilkProduct.milkIn;
       this.milkAttendanceSer[index].price = this.editMilkProduct.price;
-      this.attSer.updateMilk(this.milkAttendanceSer);
+
+      const allIndex = this.allMilkData.findIndex(
+        element => {
+          return element.id ===  this.milkAttendanceSer[index].id;
+        }
+      );
+
+      this.allMilkData[allIndex] = this.milkAttendanceSer[index];
+      this.attSer.updateMilk(this.allMilkData);
   }
 
   delete() {
-      const index = this.milkAttendanceSer.findIndex(element => {return element.id === this.editMilkProduct.id; });
+      const index = this.milkAttendanceSer.findIndex(
+        element => {
+          return element.id === this.editMilkProduct.id; });
+      const allIndex = this.allMilkData.findIndex(
+        element => {
+          return element.id ===  this.editMilkProduct.id;
+        }
+      );
       this.milkAttendanceSer.splice(index, 1);
-      this.attSer.updateMilk(this.milkAttendanceSer);
+      this.allMilkData.splice(allIndex, 1);
+      this.attSer.updateMilk(this.allMilkData);
+      // this.attSer.updateMilk(this.milkAttendanceSer);
   }
 
 

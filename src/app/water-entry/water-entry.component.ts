@@ -11,6 +11,8 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./water-entry.component.css']
 })
 export class WaterEntryComponent implements OnInit {
+
+  allCansData: WaterCans[] = [];
   waterAttendanceSer: WaterCans[] = [];
   tempWaterAttendanceSer: WaterCans[] = [];
   waterFromToDate: WaterCans[] = [];
@@ -36,9 +38,10 @@ export class WaterEntryComponent implements OnInit {
       return waterArray;
     })).subscribe(
       data => {
-                this.waterAttendanceSer = data;
+                this.allCansData = data;
+                // this.waterAttendanceSer = data;
                 // to filter data based on user
-                this.waterAttendanceSer = this.waterAttendanceSer.filter(val => {
+                this.waterAttendanceSer = this.allCansData.filter(val => {
                   return val.user === this.authSer.userEmail;
                 });
                 //
@@ -63,15 +66,23 @@ export class WaterEntryComponent implements OnInit {
   }
 
   save() {
-    const index = this.waterAttendanceSer.findIndex(element => {return element.id === this.editWaterProduct.id; });
+    const index = this.waterAttendanceSer.findIndex(
+      element => {
+        return element.id === this.editWaterProduct.id; });
 
     this.waterAttendanceSer[index].id = this.editWaterProduct.id;
     this.waterAttendanceSer[index].cans = +this.editWaterProduct.cans;
     this.waterAttendanceSer[index].waterIn = this.editWaterProduct.waterIn;
     this.waterAttendanceSer[index].price = this.editWaterProduct.price;
-    this.waterAttendanceSer[this.editWaterProduct.id] = this.editWaterProduct;
 
-    this.attSer.updateWater(this.waterAttendanceSer);
+    const allIndex = this.allCansData.findIndex(
+      element => {
+        return element.id ===  this.waterAttendanceSer[index].id;
+      }
+    );
+    this.allCansData[allIndex] = this.waterAttendanceSer[index];
+    this.attSer.updateWater(this.allCansData);
+    // this.attSer.updateWater(this.waterAttendanceSer);
   }
 
   resetWater() {
@@ -79,9 +90,19 @@ export class WaterEntryComponent implements OnInit {
   }
 
   delete() {
-      const index = this.waterAttendanceSer.findIndex(element => {return element.id === this.editWaterProduct.id; });
+      const index = this.waterAttendanceSer.findIndex(
+        element => {
+          return element.id === this.editWaterProduct.id;
+        });
+      const allIndex = this.allCansData.findIndex(
+        element => {
+          return element.id ===  this.editWaterProduct.id;
+        }
+      );
       this.waterAttendanceSer.splice(index, 1);
-      this.attSer.updateWater(this.waterAttendanceSer);
+      this.allCansData.splice(allIndex, 1);
+      this.attSer.updateWater(this.allCansData);
+      // this.attSer.updateWater(this.waterAttendanceSer);
   }
 
   WaterfromToDate(WaterdateForm: NgForm) {
