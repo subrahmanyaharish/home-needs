@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/attendace']);
       },
       errorMsg => {
-         console.log(errorMsg);
          this.error = errorMsg;
          this.isLoading = false;
          }

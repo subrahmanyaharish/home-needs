@@ -7,6 +7,9 @@
       <div *ngIf="!isLoading" class="col-xs-12 col-md-6" style="text-align: center; margin: auto;">
         <div class="alert alert-danger" role="alert" *ngIf="error">
           {{error}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
         <br><br>
         <img src="assets/H.png" alt="Home Needs" height="60" width="60">

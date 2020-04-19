@@ -82,7 +82,6 @@ export class WaterEntryComponent implements OnInit {
     );
     this.allCansData[allIndex] = this.waterAttendanceSer[index];
     this.attSer.updateWater(this.allCansData);
-    // this.attSer.updateWater(this.waterAttendanceSer);
   }
 
   resetWater() {
@@ -102,7 +101,6 @@ export class WaterEntryComponent implements OnInit {
       this.waterAttendanceSer.splice(index, 1);
       this.allCansData.splice(allIndex, 1);
       this.attSer.updateWater(this.allCansData);
-      // this.attSer.updateWater(this.waterAttendanceSer);
   }
 
   WaterfromToDate(WaterdateForm: NgForm) {

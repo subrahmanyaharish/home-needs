@@ -41,7 +41,6 @@ export class SignInComponent implements OnInit {
         this.router.navigate(['/logIn']);
       },
       errorMsg => {
-         console.log(errorMsg);
          this.error = errorMsg;
          this.isLoading = false;
          }
