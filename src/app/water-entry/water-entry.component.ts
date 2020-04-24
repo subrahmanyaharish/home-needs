@@ -86,6 +86,7 @@ export class WaterEntryComponent implements OnInit {
 
   resetWater() {
     this.waterAttendanceSer = [...this.resetWaterSer];
+    this.calculateTotalWaterPrice();
   }
 
   delete() {
@@ -104,6 +105,7 @@ export class WaterEntryComponent implements OnInit {
   }
 
   WaterfromToDate(WaterdateForm: NgForm) {
+    this.totalWaterBill = 0;
     this.waterAttendanceSer = this.tempWaterAttendanceSer;
     this.waterFromToDate = this.waterAttendanceSer.filter(value => {
       const milkFromDate = new Date(value.waterIn);
@@ -111,6 +113,7 @@ export class WaterEntryComponent implements OnInit {
       return (milkFromDate >=  WaterdateForm.value.WaterfromDate && milkFromDate  <= WaterdateForm.value.WatertoDate);
     });
     this.waterAttendanceSer = this.waterFromToDate;
+    this.calculateTotalWaterPrice();
     WaterdateForm.resetForm();
   }
 

@@ -21,7 +21,8 @@
         </mat-form-field>
         <section>
           <button color="primary" [disabled] = "!dateForm.valid" matTooltip="Filter data based on Dates" mat-raised-button type="submit">Go</button> |
-          <button class="btn btn-secondary"  (click)="resetMilk()"  mat-raised-button type="button">Reset</button>
+          <button class="btn btn-secondary"  (click)="resetMilk()"  mat-raised-button type="button">Reset</button> |
+          <button class="btn btn-info" mat-raised-button routerLink="/attendace">Add Milk >></button>
 
         </section>
       </form>
@@ -79,7 +80,8 @@
           </mat-form-field>
           <section >
             <button color="primary" [disabled] = "!WaterdateForm.valid" matTooltip="Filter data based on Dates" mat-raised-button type="submit">Go</button> |
-            <button class="btn btn-secondary"  (click)="resetWater()"  mat-raised-button type="button">Reset</button>
+            <button class="btn btn-secondary"  (click)="resetWater()"  mat-raised-button type="button">Reset</button> |
+            <button class="btn btn-info" mat-raised-button routerLink="/attendace">Add Water >></button>
           </section>
 
         </form>

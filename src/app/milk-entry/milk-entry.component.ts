@@ -108,11 +108,13 @@ export class MilkEntryComponent implements OnInit {
       return (milkFromDate >=  dateForm.value.fromDate && milkFromDate  <= dateForm.value.toDate);
     });
     this.milkAttendanceSer = this.milkFromToDate;
+    this.calculateTotalMilkPrice();
     dateForm.resetForm();
   }
 
   resetMilk() {
     this.milkAttendanceSer = [...this.resetMilkSer];
+    this.calculateTotalMilkPrice();
   }
 
 }

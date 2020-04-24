@@ -191,6 +191,7 @@ export class AttendanceEntriesComponent implements OnInit {
       return (milkFromDate >=  dateForm.value.fromDate && milkFromDate  <= dateForm.value.toDate);
     });
     this.milkAttendanceSer = this.milkFromToDate;
+    this.calculateTotalMilkPrice();
     dateForm.resetForm();
   }
 
@@ -202,15 +203,18 @@ export class AttendanceEntriesComponent implements OnInit {
       return (milkFromDate >=  WaterdateForm.value.WaterfromDate && milkFromDate  <= WaterdateForm.value.WatertoDate);
     });
     this.waterAttendanceSer = this.waterFromToDate;
+    this.calculateTotalWaterPrice();
     WaterdateForm.resetForm();
   }
 
   resetWater() {
     this.waterAttendanceSer = [...this.resetWaterSer];
+    this.calculateTotalWaterPrice();
   }
 
   resetMilk() {
     this.milkAttendanceSer = [...this.resetMilkSer];
+    this.calculateTotalMilkPrice();
   }
 
 }
